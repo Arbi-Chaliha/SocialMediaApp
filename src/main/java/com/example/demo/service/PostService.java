@@ -13,4 +13,5 @@ public interface PostService {
     List<Post> findAllPosts()throws Exception;
     List <Post> findPostsByUserId(Integer UserId)throws Exception;
 
+
 }

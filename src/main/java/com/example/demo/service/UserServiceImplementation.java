@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImplementation implements UserService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
     @Lazy
     UserService userService;
@@ -42,7 +42,8 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
-      User user=userRepository.findByEmail(email);
+      User user;
+      user = userRepository.findByEmail(email);
       return user;
     }
 

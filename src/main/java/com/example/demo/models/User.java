@@ -24,7 +24,7 @@ public class User {
 	@ElementCollection
 	private List<Integer> following=new ArrayList<>();
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany
 	private List<Post>savedPost=new ArrayList<>();
 
 	public User() {

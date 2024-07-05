@@ -15,9 +15,9 @@ public class Post {
     private String image;
     private String video;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany//one post can be liked by multiple users
     private List<User> liked=new ArrayList<>();
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne//one user can create multiple posts
     //@JoinColumn(name = "user_id")
     private User user;
     private LocalDateTime createdAt;

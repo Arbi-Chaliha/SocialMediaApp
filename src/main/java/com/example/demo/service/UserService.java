@@ -10,10 +10,7 @@ public interface UserService {
      public User findUserByEmail(String email);
 
 
-    public static User followUser(Integer userid1, Integer userid2) throws Exception
-    {
-        return null;
-    }
+    public User followUser(Integer userId1, Integer userId2) throws Exception;
 
 
 

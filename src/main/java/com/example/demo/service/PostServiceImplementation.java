@@ -6,6 +6,8 @@ import com.example.demo.myrepository.PostRepository;
 import com.example.demo.myrepository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +26,10 @@ public class PostServiceImplementation implements PostService {
         Post newPost=new Post();
         newPost.setCaption(post.getCaption());
         newPost.setImage(post.getImage());
+        newPost.setCreatedAt(LocalDateTime.now());
         newPost.setVideo(post.getVideo());
         newPost.setUser(user);
-        return newPost;
+        return postRepository.save(newPost);
 
     }
 

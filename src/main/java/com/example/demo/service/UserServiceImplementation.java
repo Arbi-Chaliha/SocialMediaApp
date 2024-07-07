@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.config.JwtProvider;
 import com.example.demo.models.User;
 import com.example.demo.myrepository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +49,14 @@ public class UserServiceImplementation implements UserService {
     }
 
     //@Override
-    public User followUser(Integer userid1, Integer userid2) throws Exception {
-        User user1=findUserById(userid1);
+    public User followUser(Integer reqUserId, Integer userid2) throws Exception {
+        User reqUser=findUserById(reqUserId);//reqUser is the logged in user who wants to follow
         User user2=findUserById(userid2);
-        user2.getFollowers().add(user1.getId());
-        user1.getFollowing().add(user2.getId());
-        userRepository.save(user1);
+        user2.getFollowers().add(reqUser.getId());
+        reqUser.getFollowing().add(user2.getId());
+        userRepository.save(reqUser);
         userRepository.save(user2);
-        return user1;
+        return reqUser;
     }
 
     //@Override
@@ -85,5 +86,12 @@ public class UserServiceImplementation implements UserService {
    // @Override
     public List<User> searchUser(String query) {
         return UserRepository.searchUser(query);
+    }
+
+    @Override
+    public User findUserByJwt(String jwt) {
+        String email= JwtProvider.getEmailFromJwtToken(jwt);
+        User user=userRepository.findByEmail(email);
+        return user;
     }
 }

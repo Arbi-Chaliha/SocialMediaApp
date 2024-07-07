@@ -22,7 +22,7 @@ public interface UserService {
     public static List<User> searchUser(String query) {
         return null;
     }
-
+  public User findUserByJwt(String jwt);
 
 
 }

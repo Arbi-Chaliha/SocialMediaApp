@@ -66,8 +66,9 @@ public class UserController {
 		return user1;
 	}*/
 
-	@PutMapping("/api/users/{userId}")
-	public User updateUser(@RequestBody User user,@PathVariable Integer userId) throws Exception {
+	@PutMapping("/api/users")
+	//Some user may try to update a user by giving the userid of that user
+	public User updateUser(@RequestHeader("Authorization")String jwt,@RequestBody User user) throws Exception {
 		/*Optional <User> user2=userRepository.findById(userId);
 		if(user2.isEmpty())
 		{
@@ -104,10 +105,11 @@ public class UserController {
 		}
 		
 		return user1;*/
-		/*User updatedUser;
-        updatedUser = UserService.updateUser(user,userId);
-        return updatedUser;*/
-		Optional <User> user2=userRepository.findById(userId);
+		User ReqUser=userService.findUserByJwt(jwt);
+		User updatedUser;
+        updatedUser = UserService.updateUser(user,ReqUser.getId());
+        return updatedUser;
+		/*Optional <User> user2=userRepository.findById(userId);
 		if(user2.isEmpty())
 		{
 			throw new Exception("user not found with id "+userId);
@@ -126,7 +128,7 @@ public class UserController {
 			oldUser.setEmail(user.getEmail());
 		}
 		//save the updated user in database
-		return userRepository.save(oldUser);
+		return userRepository.save(oldUser);*/
 
 	}
 	
@@ -143,10 +145,11 @@ public class UserController {
 			userRepository.delete(user.get());
 			return "User deleted successfully";
 		}
-		@PutMapping("/users/follow/{userId1}/{userId2}")
-	public User folowUser(@PathVariable Integer userId1, @PathVariable Integer userId2) throws Exception
+		@PutMapping("/api/users/follow/{userId2}")
+	public User folowUser(@RequestHeader("Authorization")String jwt, @PathVariable Integer userId2) throws Exception
 	{
-       User user=userService.followUser(userId1,userId2);
+		User reqUser=userService.findUserByJwt(jwt);
+       User user=userService.followUser(reqUser.getId(), userId2);
 	   return user;
 	}
 	@GetMapping("/api/users/search")
@@ -154,6 +157,16 @@ public class UserController {
 	{
 		List<User>users3=UserService.searchUser(query);
 		return users3;
+	}
+	//Bearer token-->find email--->find user
+	@GetMapping("/api/users/profile")
+	public User getUserFromToken(@RequestHeader("Authorization")String jwt)
+	{
+      // System.out.println("jwt-----"+jwt);
+		User user=userService.findUserByJwt(jwt);
+		//we don't want to send the password in the frontend
+		user.setPassword(null);
+	   return user;
 	}
 	
 }

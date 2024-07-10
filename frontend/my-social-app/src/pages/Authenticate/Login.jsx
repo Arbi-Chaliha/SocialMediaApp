@@ -2,6 +2,8 @@ import { TextField, Button } from '@mui/material';
 import React, { useState } from 'react';
 import { ErrorMessage, Field, Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { LoginUserAction } from '../../redux/Auth/auth.action';
 
 const initialValues = { email: '', password: '' };
 const validationSchema = {
@@ -13,8 +15,10 @@ const validationSchema = {
 
 const Login = () => {
   const [formValue,setFormValue]=useState();
+  const dispatch=useDispatch();
   const handleSubmit = (values) => {
     console.log('Form Values', values);
+    dispatch(LoginUserAction({data:values}));
   };
 
   return (

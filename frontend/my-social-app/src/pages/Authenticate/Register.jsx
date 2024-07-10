@@ -2,25 +2,30 @@ import { TextField, Button } from '@mui/material';
 import React, { useState } from 'react';
 import { ErrorMessage, Field, Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { registerUserAction } from '../../redux/Auth/auth.action';
 
-const initialValues = { email: '', password: '' };
+const initialValues = {firstName: '', lastName: '', email: '', password: '' };
 const validationSchema = {
+  firstName: Yup.string().required('First Name is required'),
+  lastName: Yup.string().required('Last Name is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string()
     .min(6, 'Password must be at least 6 characters long')
     .required('Password is required'),
-};
-
+}
 const Register = () => {
   const [formValue,setFormValue]=useState();
+  const dispatch=useDispatch();
   const handleSubmit = (values) => {
     console.log('Form Values', values);
+    dispatch(registerUserAction({data:values}));
   };
 
   return (
     <Formik
       onSubmit={handleSubmit}
-     // validationSchema={validationSchema}
+     //validationSchema={validationSchema}
       initialValues={initialValues}
     >
       
@@ -30,24 +35,24 @@ const Register = () => {
           <div>
               <Field
                 as={TextField}
-                name="FirstName"
+                name="firstName"
                 placeholder="First Name"
                 type="text"
                 variant="outlined"
                 fullWidth
               />
-              <ErrorMessage name="firstname" component="div" className="text-red-500" />
+              <ErrorMessage name="firstName" component="div" className="text-red-500" />
             </div>
             <div>
               <Field
                 as={TextField}
-                name="LastName"
+                name="lastName"
                 placeholder="Last Name"
                 type="text"
                 variant="outlined"
                 fullWidth
               />
-              <ErrorMessage name="lastname" component="div" className="text-red-500" />
+              <ErrorMessage name="lastName" component="div" className="text-red-500" />
             </div>
 
 

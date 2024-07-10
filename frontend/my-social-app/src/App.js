@@ -1,11 +1,16 @@
 import './App.css';
-import Authentication from './pages/Authentication/Authentication';
+import Authentication from './pages/Authenticate/Authentication';
+import Login from './pages/Authenticate/Login';
+import Register from './pages/Authenticate/Register';
 
 function App() {
   return (
+   <div>
+    <Authentication/>
    
-   <Authentication/>
+   </div>
+   
   );
 }
 
-export default Authentication;
+export default App;

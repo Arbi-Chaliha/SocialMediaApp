@@ -4,6 +4,7 @@ import { ErrorMessage, Field, Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { registerUserAction } from '../../redux/Auth/auth.action';
+import { useNavigate } from 'react-router-dom';
 
 const initialValues = {firstName: '', lastName: '', email: '', password: '' };
 const validationSchema = {
@@ -17,22 +18,24 @@ const validationSchema = {
 const Register = () => {
   const [formValue,setFormValue]=useState();
   const dispatch=useDispatch();
+  const navigate=useNavigate();
   const handleSubmit = (values) => {
     console.log('Form Values', values);
     dispatch(registerUserAction({data:values}));
   };
 
   return (
+    <>
     <Formik
       onSubmit={handleSubmit}
      //validationSchema={validationSchema}
       initialValues={initialValues}
     >
       
-        <Form className="space-y-5">
-          <div className="space-y-5">
+        <Form className="space-y-4">
+          <div className="space-y-4">
 
-          <div>
+          <div style={{ marginBottom: '0.8rem' }}>
               <Field
                 as={TextField}
                 name="firstName"
@@ -43,7 +46,7 @@ const Register = () => {
               />
               <ErrorMessage name="firstName" component="div" className="text-red-500" />
             </div>
-            <div>
+            <div style={{ marginBottom: '0.8rem' }}>
               <Field
                 as={TextField}
                 name="lastName"
@@ -58,7 +61,7 @@ const Register = () => {
 
 
 
-            <div>
+            <div style={{ marginBottom: '0.8rem' }}>
               <Field
                 as={TextField}
                 name="email"
@@ -69,7 +72,7 @@ const Register = () => {
               />
               <ErrorMessage name="email" component="div" className="text-red-500" />
             </div>
-            <div>
+            <div style={{ marginBottom: '0.8rem' }}>
               <Field
                 as={TextField}
                 name="password"
@@ -92,6 +95,12 @@ const Register = () => {
           </div>
         </Form>
     </Formik>
+    <div className="flex gap-2 align items-center justify-center pt-5">
+      <p>If already have an account please </p>
+      <Button onClick={()=>navigate("/login")}>Login</Button> 
+      
+    </div>
+    </>
   );
 };
 

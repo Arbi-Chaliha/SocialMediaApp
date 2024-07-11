@@ -4,6 +4,8 @@ import { ErrorMessage, Field, Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { LoginUserAction } from '../../redux/Auth/auth.action';
+import { Route,Routes } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const initialValues = { email: '', password: '' };
 const validationSchema = {
@@ -16,21 +18,24 @@ const validationSchema = {
 const Login = () => {
   const [formValue,setFormValue]=useState();
   const dispatch=useDispatch();
+  const navigate=useNavigate();
   const handleSubmit = (values) => {
     console.log('Form Values', values);
     dispatch(LoginUserAction({data:values}));
   };
 
   return (
+    <>
     <Formik
       onSubmit={handleSubmit}
      // validationSchema={validationSchema}
       initialValues={initialValues}
     >
       
-        <Form className="space-y-5">
-          <div className="space-y-5">
-            <div>
+        <Form className="space-y-4">
+          <div className="space-y-4">
+            <div style={{ marginBottom: '0.8rem' }}>
+             
               <Field
                 as={TextField}
                 name="email"
@@ -41,7 +46,7 @@ const Login = () => {
               />
               <ErrorMessage name="email" component="div" className="text-red-500" />
             </div>
-            <div>
+            <div style={{ marginBottom: '0.8rem' }}>
               <Field
                 as={TextField}
                 name="password"
@@ -65,6 +70,12 @@ const Login = () => {
           </div>
         </Form>
     </Formik>
+    <div className="flex gap-2 align items-center justify-center pt-5">
+      <p>If you don't have an account please </p>
+      <Button onClick={()=>navigate("/register")}>Sign Up</Button> 
+      
+    </div>
+    </>
   );
 };
 

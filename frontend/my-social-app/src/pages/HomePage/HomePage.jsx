@@ -121,7 +121,9 @@ const HomePage = () => {
           </div>
         </Grid>
         <Grid
-          lg={6}  // Width for Middlepart
+          //lg={6}  // Width for Middlepart
+          lg={location.pathname.includes("/profile/") ? 9 : 6}
+          //lg={location.pathname === "/profile/:id" ? 9 : 6}
           item
           className="px-5 flex justify-center min-h-screen"
           xs={12}
@@ -133,11 +135,12 @@ const HomePage = () => {
             <Route path="/profile/:id" element={<Profile />} />
           </Routes>
         </Grid>
-        <Grid item lg={3}> {/* Width for HomeRight */}
-          <div className="sticky top-0 ">
+        {location.pathname !== "/profile/:id" && (
+        <Grid item lg={3} className="relative"> {/* Width for HomeRight */}
+          <div className="sticky top-0 w-full">
             <HomeRight />
           </div>
-        </Grid>
+        </Grid>)}
       </Grid>
     </div>
   );

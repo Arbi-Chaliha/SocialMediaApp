@@ -5,6 +5,8 @@ import Login from './pages/Authenticate/Login';
 import Register from './pages/Authenticate/Register';
 import Message from './pages/Message/Message';
 import HomePage from './pages/HomePage/HomePage';
+import './index.css'; // Ensure this import exists and is correct
+
 
 function App() {
   return (

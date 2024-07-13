@@ -134,8 +134,8 @@ const HomePage = () => {
             <Route path="/createreels" element={<CreateReelsForm />} />
             <Route path="/profile/:id" element={<Profile />} />
           </Routes>
-        </Grid>
-        {location.pathname !== "/profile/:id" && (
+        </Grid>{/*  {location.pathname !== "/profile/:id" &&*/}
+        {location.pathname === "/" && (
         <Grid item lg={3} className="relative"> {/* Width for HomeRight */}
           <div className="sticky top-0 w-full">
             <HomeRight />

@@ -6,6 +6,8 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import PostCard from "../../components/Post/PostCard";
 import UserReelsCard from "../../components/Reels/UserReelsCard";
+import ProfileModal from "./Profile";
+import { useSelector } from "react-redux";
 
 const tabs = [
   { value: "post", name: "Post" },
@@ -16,13 +18,18 @@ const tabs = [
 const posts = [1, 1, 1, 1, 1];
 const reels = [1, 1, 1, 1];
 const savedPost = [1, 1, 1];
+
 const Profile = () => {
   const { id } = useParams();
   const [value, setValue] = React.useState("one");
+  const auth = useSelector((store) => store.auth);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [open, setOpen] = React.useState(false);
+  const handleOpenProfileModal = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Card className="my-10 w-[70%]">
       <div className="rounded-md">
@@ -49,8 +56,8 @@ const Profile = () => {
         </div>
         <div className="p-4">
           <div className="py-1 font-bold text-xl">
-            <h1>Arbi Chaliha</h1>
-            <p>@ArbiChaliha03</p>
+            <h1>auth.user?.firstName+" "+auth.user?.lastName</h1>
+            <p>@{auth.user?.firstName.toLowerCase()+"_"+auth.user?.lastName.toLowerCase()}</p>
           </div>
           <div className="flex gap-5 items-center py-3">
             <span>4 posts</span>
@@ -107,6 +114,9 @@ const Profile = () => {
           </div>
         </section>
       </div>
+      <section>
+        <ProfileModal open={open} handleClose={handleClose}/>
+      </section>
     </Card>
   );
 };

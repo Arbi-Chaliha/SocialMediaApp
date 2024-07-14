@@ -19,19 +19,19 @@ export const navigationMenu=
     {
         title:"Reels",
         icon:<ExploreIcon/>,
-        path:"/"
+        path:"/reels"
 
     },
     {
         title:"Create reels",
         icon:<ControlPointIcon/>,
-        path:"/"
+        path:"/create-reels"
 
     },
     {
         title:"Message",
         icon:<MessageIcon/>,
-        path:"/"
+        path:"/message"
 
     },
     {
@@ -55,7 +55,7 @@ export const navigationMenu=
     {
         title:"Profile",
         icon:<AccountCircleIcon/>,
-        path:"/"
+        path:"/profile"
 
     },
 

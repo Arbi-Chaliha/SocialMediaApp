@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { LoginUserAction } from '../../redux/Auth/auth.action';
 import { Route,Routes } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 
 const initialValues = { email: '', password: '' };
 const validationSchema = {
@@ -17,8 +17,10 @@ const validationSchema = {
 
 const Login = () => {
   const [formValue,setFormValue]=useState();
+  const location = useLocation(); 
   const dispatch=useDispatch();
   const navigate=useNavigate();
+  const jwt=localStorage.getItem("jwt");
   const handleSubmit = (values) => {
     console.log('Form Values', values);
     dispatch(LoginUserAction({data:values}));

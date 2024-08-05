@@ -2,7 +2,7 @@ import React from 'react'
 import { CardHeader, IconButton,Avatar, cardActionAreaClasses, Card } from '@mui/material'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-const UserChatCard = () => {
+const UserChatCard = ({chat}) => {
   return (
     <Card>
        <div>

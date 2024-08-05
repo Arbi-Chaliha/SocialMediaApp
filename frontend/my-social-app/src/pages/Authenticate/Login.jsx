@@ -75,7 +75,6 @@ const Login = () => {
     <div className="flex gap-2 align items-center justify-center pt-5">
       <p>If you don't have an account please </p>
       <Button onClick={()=>navigate("/register")}>Sign Up</Button> 
-      
     </div>
     </>
   );

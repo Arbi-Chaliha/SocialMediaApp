@@ -15,9 +15,9 @@ const tabs = [
   { value: "saved", name: "Saved" },
   { value: "repost", name: "Repost" },
 ];
-const posts = [1, 1, 1, 1, 1];
-const reels = [1, 1, 1, 1];
-const savedPost = [1, 1, 1];
+const posts = [1, 2, 3, 4, 5]; // Changed to unique values
+const reels = [1, 2, 3, 4]; // Changed to unique values
+const savedPost = [1, 2, 3]; // Changed to unique values
 
 const Profile = () => {
   const { id } = useParams();
@@ -30,6 +30,7 @@ const Profile = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpenProfileModal = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   return (
     <Card className="my-10 w-[70%]">
       <div className="rounded-md">
@@ -56,8 +57,8 @@ const Profile = () => {
         </div>
         <div className="p-4">
           <div className="py-1 font-bold text-xl">
-            <h1>auth.user?.firstName+" "+auth.user?.lastName</h1>
-            <p>@{auth.user?.firstName.toLowerCase()+"_"+auth.user?.lastName.toLowerCase()}</p>
+            <h1>{auth.user?.firstName + " " + auth.user?.lastName}</h1>
+            <p>@{auth.user?.firstName.toLowerCase() + "_" + auth.user?.lastName.toLowerCase()}</p>
           </div>
           <div className="flex gap-5 items-center py-3">
             <span>4 posts</span>
@@ -75,8 +76,8 @@ const Profile = () => {
               onChange={handleChange}
               aria-label="wrapped label tabs example"
             >
-              {tabs.map((item) => (
-                <Tab value={item.value} label={item.name} wrapped />
+              {tabs.map((item, index) => (
+                <Tab key={index} value={item.value} label={item.name} wrapped />
               ))}
             </Tabs>
           </Box>
@@ -84,7 +85,7 @@ const Profile = () => {
             {value === "post" ? (
               <div className="space-y-5 w-[70%] my-10">
                 {posts.map((item) => (
-                  <div className="border border-slate-100 rounded-md ">
+                  <div key={item} className="border border-slate-100 rounded-md">
                     <PostCard />
                   </div>
                 ))}
@@ -92,30 +93,25 @@ const Profile = () => {
             ) : value === "reels" ? (
               <div className="flex flex-wrap justify-center gap-2 my-10">
                 {reels.map((item) => (
-                  <UserReelsCard />
+                  <UserReelsCard key={item} />
                 ))}
               </div>
             ) : value === "saved" ? (
               <div className="space-y-5 w-[70%] my-10">
-                {posts.map((item) => (
-                  <div className="border border-slate-100 rounded-md ">
+                {savedPost.map((item) => (
+                  <div key={item} className="border border-slate-100 rounded-md">
                     <PostCard />
                   </div>
                 ))}
               </div>
             ) : (
-             
-              
               <div>Repost</div>
-
-
-
             )}
           </div>
         </section>
       </div>
       <section>
-        <ProfileModal open={open} handleClose={handleClose}/>
+        <ProfileModal open={open} handleClose={handleClose} />
       </section>
     </Card>
   );

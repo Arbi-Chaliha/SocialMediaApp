@@ -1,9 +1,13 @@
 import { applyMiddleware, combineReducers, legacy_createStore } from "redux";
 import { thunk } from "redux-thunk";
 import { authReducer } from "./Auth/auth.reducer";
+//import {postReducer} from "./Post/post.reducer";
+import { messageReducer } from "./Message/message.reducer";
 export const rootReducers=combineReducers(
     {
-       auth:authReducer
+       auth:authReducer,
+       //post:postReducer,
+       message:messageReducer
     }
 )
 

@@ -10,17 +10,13 @@ import { useLocation } from "react-router-dom";
 //import Middlepart from "../../components/Middlepart/Middlepart";
 import Middlepart from "../../components/MiddlePart/Middlepart";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfileAction } from "../../redux/Auth/auth.action";
+// import { getProfileAction } from "../../redux/Auth/auth.action";
 
 const HomePage = () => {
   const location = useLocation(); // Defines the HomePage functional component.
   const dispatch=useDispatch();
   const jwt=localStorage.getItem("jwt");
   const {auth}=useSelector((store)=>store.auth)
-
-
-
-  
   
   return (
     <div className="px-20 min-h-screen">

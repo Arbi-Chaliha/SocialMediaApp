@@ -6,7 +6,17 @@ import VideoCallIcon from '@mui/icons-material/VideoCall';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'; 
 import SearchUser from '../../components/SearchUser/SearchUser';
 import UserChatCard from './UserChatCard';
+import ChatMessage from './ChatMessage';
+import { useDispatch,useSelector } from 'react-redux';
+import {getAllChats} from '../../redux/Message/message.action'
 const Message = () => {
+  const dispatch=useDispatch();
+  const {message,auth}=useSelector(store=>store);
+
+  useEffect(()=>{
+    dispatch(getAllChats());
+  },[])
+  console.log("chats...",message.chats)
   const handleSelectImage=()=>
   {
     console.log('handle select image')
@@ -28,7 +38,10 @@ const Message = () => {
               <SearchUser/>
               </div>
               <div className='h-full space-y-4 mt-5 overflow-y-scroll hideScrollbar'>
-              <UserChatCard/>
+                {
+                  message.chats.map((item)=><UserChatCard chat={item}/>)
+                }
+         
               </div>
             </div>
            </div>
@@ -52,7 +65,7 @@ const Message = () => {
             </div>
           </div>
           <div className='hideScrollbar overflow-y-scroll h-[82vh] px-2 space-y-5 py-5'>
-            Message
+            <ChatMessage/>
           </div>
         </div>
         <div className='sticky bottom-0 border-1'>

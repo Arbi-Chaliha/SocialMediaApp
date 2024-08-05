@@ -1,8 +1,8 @@
 import axios from "axios"
 import { API_BASE_URL } from "../../config/api";
 //import { type } from "@testing-library/user-event/dist/type";
-//import { api } from "../../config/api";
-import { LOGIN_REQUEST,LOGIN_SUCCESS,LOGIN_FAILURE,REGISTER_REQUEST,REGISTER_SUCCESS,REGISTER_FAILURE, GET_PROFILE_SUCCESS, GET_PROFILE_FAILURE, GET_PROFILE_REQUEST, UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAILURE} from "./auth.actionType";
+import { api } from "../../config/api";
+import {SEARCH_USER_REQUEST,SEARCH_USER_SUCCESS,SEARCH_USER_FAILURE, LOGIN_REQUEST,LOGIN_SUCCESS,LOGIN_FAILURE,REGISTER_REQUEST,REGISTER_SUCCESS,REGISTER_FAILURE, GET_PROFILE_SUCCESS, GET_PROFILE_FAILURE, GET_PROFILE_REQUEST, UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAILURE} from "./auth.actionType";
 
 export const LoginUserAction=(loginData)=>async(dispatch)=>
 {
@@ -23,25 +23,6 @@ export const LoginUserAction=(loginData)=>async(dispatch)=>
     }
 }
 
-/*export const LoginUserAction = (loginData) => async (dispatch) => {
-    dispatch({ type: LOGIN_REQUEST });
-    try {
-        const response = await axios.post(`${API_BASE_URL}/auth/signin`, loginData.data);
-        console.log("Login response:", response.data); // Log the entire response
-        
-        if (response.data && response.data.jwt) {
-            localStorage.setItem("jwt", response.data.jwt);
-            console.log("Login success", response.data);
-            dispatch({ type: LOGIN_SUCCESS, payload: response.data.jwt });
-        } else {
-            throw new Error("JWT not found in response");
-        }
-    } catch (error) {
-        console.error("Login error:", error);
-        const errorMessage = error.response?.data?.message || error.message; // Check for a specific message
-        dispatch({ type: LOGIN_FAILURE, payload: errorMessage });
-    }
-};*/
 
 
 
@@ -66,27 +47,7 @@ export const registerUserAction=(loginData)=>async(dispatch)=>
         }
     }
 
-    
-/*export const LoginUserAction = (registerData) => async (dispatch) => {
-    dispatch({ type: LOGIN_REQUEST });
-    try {
-        const response = await axios.post(`${API_BASE_URL}/auth/signin`, registerData.data);
-        console.log("Login response:", response.data); // Log the entire response
-        const { data } = response;
-        
-        if (data && data.jwt) {
-            localStorage.setItem("jwt", data.jwt);
-            console.log("Login success", data);
-            dispatch({ type: LOGIN_SUCCESS, payload: data.jwt });
-        } else {
-            throw new Error("JWT not found in response");
-        }
-    } catch (error) {
-        console.error("Login error:", error);
-        const errorMessage = error.response && error.response.data ? error.response.data.message : error.message;
-        dispatch({ type: LOGIN_FAILURE, payload: errorMessage });
-    }
-};*/
+ 
 
 
 
@@ -129,6 +90,26 @@ export const registerUserAction=(loginData)=>async(dispatch)=>
             
                 }
             }
+
+
+            export const searchUser=(query)=>async(dispatch)=>
+                {
+                    dispatch({type:SEARCH_USER_REQUEST})
+                    try{
+                       const {data}=await api.get(`/api/users/search?query=${query}`)
+                      
+                      
+                       console.log("search user---",data);
+                       dispatch({type:SEARCH_USER_SUCCESS,payload:data});
+                    }
+                    catch(error){
+                        console.log("........",error);
+                        dispatch({type:SEARCH_USER_FAILURE,payload:error});
+                
+                    }
+                }
+        
+        
 
 
                
